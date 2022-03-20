@@ -404,7 +404,12 @@ OpGasCost[5] = {
   ecdsa_pk_recover: 2000
 };
 
-OpGasCost[6] = { ...OpGasCost[5] };
+OpGasCost[6] = { 
+  ...OpGasCost[5],
+  bn256_add: 166,
+  bn256_scalar_mul: 892,
+  bn256_pairing: 6879,
+};
 
 export const enum MathOp {
   // arithmetic

@@ -5,7 +5,7 @@ import {
   Add, Addr, Addw, And, AppGlobalDel, AppGlobalGet, AppGlobalGetEx,
   AppGlobalPut, AppLocalDel, AppLocalGet, AppLocalGetEx, AppLocalPut,
   AppOptedIn, AppParamsGet, Arg, Args, Assert, Balance, BitLen, BitwiseAnd, BitwiseNot, BitwiseOr,
-  BitwiseXor, Branch, BranchIfNotZero, BranchIfNotZerov4, BranchIfZero, BranchIfZerov4, Branchv4,
+  BitwiseXor, BN256Add, Branch, BranchIfNotZero, BranchIfNotZerov4, BranchIfZero, BranchIfZerov4, Branchv4,
   Btoi, Byte, ByteAdd, ByteBitwiseAnd, ByteBitwiseInvert, ByteBitwiseOr,
   ByteBitwiseXor, Bytec, Bytecblock, ByteDiv, ByteEqualTo, ByteGreaterThanEqualTo, ByteGreatorThan,
   ByteLessThan, ByteLessThanEqualTo, ByteMod, ByteMul, ByteNotEqualTo, ByteSub,
@@ -243,7 +243,10 @@ opCodeMap[5] = {
 };
 
 opCodeMap[6] = {
-  ...opCodeMap[5]
+  ...opCodeMap[5],
+
+  // bn256
+  bn256_add: BN256Add,
 };
 
 // list of opcodes that require one extra parameter than others: `interpreter`.

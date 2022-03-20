@@ -3387,8 +3387,10 @@ export class Extract3 extends Op {
 
   execute (stack: TEALStack): void {
     this.assertMinStackLen(stack, 3, this.line);
-    const length = this.assertUInt8(stack.pop(), this.line);
-    const start = this.assertUInt8(stack.pop(), this.line);
+    // const length = this.assertUInt8(stack.pop(), this.line);
+    // const start = this.assertUInt8(stack.pop(), this.line);
+    const length = Number(stack.pop());
+    const start = Number(stack.pop());
     const array = this.assertBytes(stack.pop(), this.line);
 
     stack.push(this.opExtractImpl(array, start, length));
@@ -4352,3 +4354,31 @@ export class AppParamsGet extends Op {
     }
   };
 };
+
+
+export class BN256Add extends Op {
+  readonly line: number;
+  /**
+   * Asserts 0 arguments are passed.
+   * @param args Expected arguments: [] // none
+   * @param line line number in TEAL file
+   */
+  constructor (args: string[], line: number) {
+    super();
+    this.line = line;
+    assertLen(args.length, 0, line);
+  };
+
+  execute (stack: TEALStack): void {
+    this.assertMinStackLen(stack, 2, this.line);
+    const top = this.assertBytes(stack.pop(), this.line);
+    const prev = this.assertBytes(stack.pop(), this.line);
+
+    console.log(prev)
+    console.log(top)
+    const hash = new Keccak(256);
+    hash.update(convertToString(top));
+    const arrByte = Uint8Array.from(hash.digest());
+    stack.push(arrByte);
+  }
+}
